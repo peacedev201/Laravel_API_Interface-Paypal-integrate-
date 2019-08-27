@@ -20,6 +20,7 @@ Route::get('/', function () {
 //     return view('admin');
 // });
 
+
 Route::get('/admin', 'DataController@index')->name('admin');
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -31,3 +32,7 @@ Route::get('update_place_order', 'DataController@update_place_order');
 Route::get('update_cancel_order', 'DataController@update_cancel_order');
 
 Route::get('admin_view', 'HomeController@view');
+
+Route::post('paypal', 'PaymentController@payWithpaypal');
+Route::get('status', 'PaymentController@getPaymentStatus');
+
