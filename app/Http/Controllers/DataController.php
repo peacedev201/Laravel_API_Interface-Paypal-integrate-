@@ -34,6 +34,8 @@ class DataController extends Controller
         } 
         else{
             Data_table::where('user_id', '=', $user_id)->update(['payment' => 0]);
+            Data_table::where('user_id', '=', $user_id)->update(['trade' => 0]);
+            
         }
         $result_data = DB::table('data_tables')
                         ->join('users', 'data_tables.user_id', '=', 'users.id')

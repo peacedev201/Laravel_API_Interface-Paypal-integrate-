@@ -27,7 +27,7 @@
 <script type="text/javascript">
 $(document).ready(function () {
     $.ajax({
-        url :"/admin_view",
+        url :"admin_view",
         type:'GET',
         success: function(data){
         var html = '';
@@ -90,7 +90,7 @@ $(document).ready(function () {
         var id = $(this).data('id');
         // console.log(id);
         $.ajax({
-        url :"/update_payment",
+        url :"update_payment",
         data: {id:id},
         dataType : "JSON",
         type:'GET',
@@ -105,7 +105,7 @@ $(document).ready(function () {
         var id = $(this).data('id');
         // console.log(id);
         $.ajax({
-        url :"/update_trade",
+        url :"update_trade",
         data: {id:id},
         dataType : "JSON",
         type:'GET',
@@ -120,7 +120,7 @@ $(document).ready(function () {
         var id = $(this).data('id');
         // console.log(id);
         $.ajax({
-        url :"/update_cancel_order",
+        url :"update_cancel_order",
         data: {id:id},
         dataType : "JSON",
         type:'GET',
@@ -135,7 +135,7 @@ $(document).ready(function () {
         var id = $(this).data('id');
         // console.log(id);
         $.ajax({
-        url :"/update_place_order",
+        url :"update_place_order",
         data: {id:id},
         dataType : "JSON",
         type:'GET',

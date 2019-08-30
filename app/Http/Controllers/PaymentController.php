@@ -20,6 +20,10 @@ use Redirect;
 use Session;
 use URL;
 
+use App\User;
+use App\Data_table;
+use DB;
+
 class PaymentController extends Controller
 {
     private $_api_context;
@@ -136,6 +140,8 @@ class PaymentController extends Controller
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
 
             \Session::put('error', 'Payment failed');
+            Data_table::where('user_id', '=', $user_id)->update(['payment' => 0]);
+            Data_table::where('user_id', '=', $user_id)->update(['trade' => 0]);
             return Redirect::to('/home');
 
         }
@@ -148,13 +154,18 @@ class PaymentController extends Controller
         $result = $payment->execute($execution, $this->_api_context);
 
         if ($result->getState() == 'approved') {
-
+            $user_id = Session::get('key');
             \Session::put('success', 'Payment success');
+            Data_table::where('user_id', '=', $user_id)->update(['payment' => 1]);
+            Data_table::where('user_id', '=', $user_id)->update(['trade' => 1]);
+
             return Redirect::to('/home');
 
         }
 
         \Session::put('error', 'Payment failed');
+        Data_table::where('user_id', '=', $user_id)->update(['payment' => 0]);
+        Data_table::where('user_id', '=', $user_id)->update(['trade' => 0]);
         return Redirect::to('/home');
 
     }

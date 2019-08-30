@@ -23,8 +23,13 @@
         <div id="trade">   
           <h4 style = "text-align:center">Current Trade:</h4>
           <h5 style = "text-align:center">TUSD/USDT BUY LIMIT: <span>1.0025<span></h5>
-
+        @if($result_data[0]->trade == 0)
+          <h3 class = "red_active">NON ACTIVATED<h3>
+        @elseif($result_data[0]->trade == 1)
+          <h3 class = "orange_active">PRE ACTIVATED<h3>
+        @else
           <h3 class = "blue_active">ACTIVATED<h3>
+        @endif
 
         </div>
         <div id="signals" class = "hidden">   
@@ -112,10 +117,20 @@
         </div>
         <div id="subscription" class = "hidden"> 
 
-        <h5 style = "text-align:center">Username: <span>{{ Auth::user()->roll }}<span></h5>
-        <h5 style = "text-align:center">Status: <span>OK<span></h5><br><br>
+        <h5 style = "text-align:center">Username: <span>{{ Auth::user()->name }}<span></h5>
+
+        @if($result_data[0]->status == 1)
+            <h5 style = "text-align:center">Status: <span>OK<span></h5><br><br>
+
+        @else
+
+        <!-- {{$result_data[0]->status}} -->
+        <h5 style = "text-align:center">Status: <span>Cancel <span></h5><br><br>
+
+        @endif
+      
         <h5 style = "text-align:center">or Register for 29$ month only</h5>
-        <img class="img-responsive" style = "margin-left:29%" src="{{ asset('img/1.png') }}" alt="demo" />
+        
         
         <!-- payment start -->
         <div class="w3-container">
@@ -137,13 +152,19 @@
         <?php Session::forget('error');?>
         @endif
 
+        
     	<form class="w3-container w3-display-middle w3-card-4 w3-padding-16" method="POST" id="payment-form"
           action="{!! URL::to('paypal') !!}">
-    	  <div class="w3-container w3-teal w3-padding-16">Paywith Paypal</div>
+    	  <!-- <div class="w3-container w3-teal w3-padding-16">Paywith Paypal</div> -->
     	  {{ csrf_field() }}  	
-    	
-    	  <button class="w3-btn w3-blue">Pay with PayPal</button>
-    	</form>
+    	    <img class="img-responsive" style = "margin-left:29%" src="{{ asset('img/1.png') }}" alt="demo" />
+    	  <!-- <button class="w3-btn w3-blue">Pay with PayPal</button> -->
+        </form>
+        <script>
+            $(document).on('click','.img-responsive',function(){
+                document.getElementById('payment-form').submit();
+            })
+        </script>
     </div>
 <!-- payment end -->
         </div>
@@ -177,7 +198,7 @@ $(document).ready(function () {
         api_key = $("#api_key").val();
         secret_key = $("#secret_key").val();
         $.ajax({
-            url: '/key_confirm',
+            url: 'key_confirm',
             type: 'get',
             data: { id: id,
                 api_key: api_key,

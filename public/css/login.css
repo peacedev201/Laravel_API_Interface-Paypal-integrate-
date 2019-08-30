@@ -305,6 +305,20 @@ h6 {
   text-align: center;
 }
 
+.red_active{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: #ef516e;
+  text-align: center;
+}
+
+.orange_active{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: #f6993f;
+  text-align: center;
+}
+
 .tabs .selector {
   height: 100%;
   display: inline-block;
